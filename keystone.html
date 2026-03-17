@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keystone Species — ORIGIN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="origin.css">
+  <style>
+    /* ── Page-specific enhancements ── */
+    .chapter-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(8rem, 20vw, 18rem);
+      line-height: 0.85;
+      color: rgba(0,0,0,0.04);
+      position: absolute;
+      top: -1rem;
+      right: 3rem;
+      letter-spacing: -0.04em;
+      pointer-events: none;
+      user-select: none;
+    }
+    .section-relative { position: relative; overflow: hidden; }
+
+    /* Wolf contrast section */
+    .wolf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 3rem;
+    }
+    .wolf-panel {
+      position: relative;
+      overflow: hidden;
+      height: 520px;
+    }
+    .wolf-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .wolf-panel:hover img { transform: scale(1.04); }
+    .wolf-panel-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(10,10,10,0.88) 0%, transparent 100%);
+    }
+    .wolf-panel-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .wolf-panel-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    /* Steward mosaic */
+    .steward-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 340px 340px;
+      gap: 2px;
+      margin-top: 3rem;
+    }
+    .steward-mosaic .sm-cell {
+      overflow: hidden;
+      position: relative;
+    }
+    .steward-mosaic .sm-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .steward-mosaic .sm-cell:hover img { transform: scale(1.05); }
+    .steward-mosaic .sm-wide {
+      grid-column: span 2;
+    }
+    .sm-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(10,10,10,0.75) 0%, transparent 100%);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Three-type cards */
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 3rem;
+    }
+    .type-card {
+      padding: 3rem 2.5rem;
+      border: 1px solid var(--gray-line);
+      position: relative;
+    }
+    .type-card-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 4rem;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .type-card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+      color: var(--black);
+    }
+    .type-card-body {
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: #3a3a3a;
+    }
+
+    /* Indigenous portrait strip */
+    .portrait-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+      margin-top: 0;
+    }
+    .portrait-cell {
+      position: relative;
+      overflow: hidden;
+      height: 600px;
+    }
+    .portrait-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.6s ease;
+    }
+    .portrait-cell:hover img { transform: scale(1.04); }
+    .portrait-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2.5rem 2rem;
+      background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 100%);
+    }
+    .portrait-region {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .portrait-quote {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+
+    /* Stat strip */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--gray-line);
+      border-left: 1px solid var(--gray-line);
+      margin-top: 4rem;
+    }
+    .stat-strip-item {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--gray-line);
+      border-bottom: 1px solid var(--gray-line);
+    }
+    .stat-strip-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-strip-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-text);
+    }
+
+    /* Yellowstone image+text split */
+    .ys-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+    .ys-image {
+      min-height: 520px;
+      background-size: cover;
+      background-position: center;
+    }
+    .ys-content {
+      padding: 5rem 4rem;
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ys-content .label { color: var(--gold); }
+    .ys-content .heading-lg { color: var(--white); }
+    .ys-content .body-text { color: rgba(255,255,255,0.58); }
+
+    /* Origin connection section */
+    .origin-band {
+      background: var(--black);
+      padding: 8rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .origin-band::before {
+      content: 'ORIGIN';
+      position: absolute;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 30vw;
+      color: rgba(255,255,255,0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .origin-band .inner { position: relative; z-index: 2; }
+
+    @media (max-width: 960px) {
+      .wolf-grid, .type-grid, .steward-mosaic,
+      .portrait-strip, .ys-grid { grid-template-columns: 1fr; }
+      .wolf-panel, .portrait-cell { height: 360px; }
+      .steward-mosaic .sm-wide { grid-column: span 1; }
+      .steward-mosaic { grid-template-rows: auto; }
+      .steward-mosaic .sm-cell { height: 300px; }
+      .stat-strip { grid-template-columns: 1fr 1fr; }
+      .ys-image { min-height: 300px; }
+      .chapter-number { font-size: 8rem; right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">Origin</a>
+    <div class="nav-links">
+      <a href="#">What Is Origin</a>
+      <a href="#">The Fund</a>
+      <a href="#">Oct 17, 2026</a>
+      <a href="#" class="btn btn-nav">Join the Movement</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="background-image: url('pexels-pixabay-235925.jpg'); background-position: center 40%;">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Origin — Ecology & Science</p>
+      <h1 class="hero-title">Keystone<br>Species</h1>
+      <p class="hero-subtitle">Definition, Examples &amp; Why Humanity Is One</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn btn-white">Read the Science</a>
+        <a href="#" class="btn btn-ghost">Join Oct 17, 2026</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Keystone Species</span>
+      <span>·</span>
+      <span>Trophic Cascades</span>
+      <span>·</span>
+      <span>Regenerative Earth</span>
+      <span>·</span>
+      <span>Humanity's Role</span>
+      <span>·</span>
+      <span>Yellowstone Wolves</span>
+      <span>·</span>
+      <span>October 17, 2026</span>
+      <span>·</span>
+      <span>One Billion Hearts</span>
+      <span>·</span>
+      <span>Keystone Species</span>
+      <span>·</span>
+      <span>Trophic Cascades</span>
+      <span>·</span>
+      <span>Regenerative Earth</span>
+      <span>·</span>
+      <span>Humanity's Role</span>
+      <span>·</span>
+      <span>Yellowstone Wolves</span>
+      <span>·</span>
+      <span>October 17, 2026</span>
+      <span>·</span>
+      <span>One Billion Hearts</span>
+      <span>·</span>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="section section-white section-relative">
+    <div class="chapter-number">01</div>
+    <div class="inner">
+      <div class="two-col" style="display:grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;">
+        <div class="reveal">
+          <span class="label">Definition</span>
+          <h2 class="heading-xl">What Is a Keystone Species?</h2>
+        </div>
+        <div class="reveal">
+          <div class="body-text dark">
+            <p>A keystone species is an organism whose presence — or absence — reshapes its entire ecosystem in ways disproportionate to its size or numbers. Remove it, and the web of life around it unravels. Restore it, and entire landscapes come back to life.</p>
+            <p>The concept is one of ecology's most powerful ideas. And it carries an implication that most biology textbooks stop just short of stating: that humanity, whose footprint has bent the living systems of Planet Earth, may be the most consequential keystone species in the history of life on Earth — and the one most urgently called to choose how it acts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-strip reveal">
+        <div class="stat-strip-item">
+          <div class="stat-strip-number">1969</div>
+          <div class="stat-strip-label">Year the concept was introduced by zoologist Robert T. Paine</div>
+        </div>
+        <div class="stat-strip-item">
+          <div class="stat-strip-number">50%</div>
+          <div class="stat-strip-label">Biodiversity lost in Paine's tidal plain within one year of keystone removal</div>
+        </div>
+        <div class="stat-strip-item">
+          <div class="stat-strip-number">3</div>
+          <div class="stat-strip-label">Types of keystone species: predators, engineers, and mutualists</div>
+        </div>
+        <div class="stat-strip-item">
+          <div class="stat-strip-number">0</div>
+          <div class="stat-strip-label">Other species capable of filling a keystone's ecological niche once lost</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE 1 -->
+  <section class="section section-offwhite">
+    <div class="inner-mid">
+      <div class="pull-quote reveal">
+        A keystone species is a species that has a disproportionately large effect on its natural environment relative to its abundance. It is not about dominance through numbers — it is about the quality and nature of a species' relationships within the web of life.
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE TYPES -->
+  <section class="section section-white section-relative">
+    <div class="chapter-number">02</div>
+    <div class="inner">
+      <span class="label reveal">Ecology</span>
+      <h2 class="heading-lg reveal">The Three Types:<br>Predators, Engineers &amp; Mutualists</h2>
+      <div class="body-text dark reveal" style="max-width: 680px; margin-bottom: 1rem;">
+        <p>Keystone species fall into three broad categories, each expressing the same essential truth through a different ecological role. Each is defined not by its size or abundance, but by the irreplaceability of its function within the web of life.</p>
+      </div>
+      <div class="type-grid reveal">
+        <div class="type-card">
+          <div class="type-card-num">01</div>
+          <div class="type-card-title">Keystone Predators</div>
+          <div class="type-card-body">Regulate the populations and range of their prey, preventing any single species from crowding out all others. By keeping prey populations in check, keystone predators — like wolves and sea otters — impact other predators as well as animal and plant species farther down the food chain.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-card-num">02</div>
+          <div class="type-card-title">Ecosystem Engineers</div>
+          <div class="type-card-body">Physically transform their habitat in ways that create conditions for dozens of other species to flourish. The American Beaver is one example: its dams divert water in rivers, creating wetlands that allow a vast variety of animals and plants to thrive where none could before.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-card-num">03</div>
+          <div class="type-card-title">Keystone Mutualists</div>
+          <div class="type-card-body">Create reciprocal relationships of exchange that sustain entire systems. Bees, as they take nectar from flowers, collect pollen and spread it from one flower to the next — enhancing fertilization and the growth of entire plant communities across vast landscapes.</div>
+        </div>
+      </div>
+      <div class="pull-quote reveal" style="margin-top: 4rem;">
+        Keystone species have low functional redundancy — meaning that if the species disappeared from an ecosystem, no other species would be able to fill its ecological niche. The loss is irreplaceable. And the restoration, when it comes, is transformative.
+      </div>
+    </div>
+  </section>
+
+  <!-- WOLVES — COLLAPSE VS RESTORATION -->
+  <section class="section section-black">
+    <div class="inner">
+      <span class="label reveal">Trophic Cascades</span>
+      <h2 class="heading-lg reveal" style="color: var(--white);">What Happens When<br>a Keystone is Lost</h2>
+      <div class="body-text light reveal" style="max-width: 680px; margin-bottom: 3rem;">
+        <p>The science of trophic cascades — the chain of ecological effects that ripples through a food web when a keystone species disappears — is among the most well-documented phenomena in ecology. Each case study reads like a cautionary story about the hidden architecture of living systems.</p>
+        <p>When sea otters were hunted nearly to extinction along North America's Pacific coast, the sea urchin populations they had regulated exploded. Those urchins consumed the kelp forests that had sheltered entire marine communities — fish nurseries, invertebrate habitats, and food sources for birds and marine mammals. The removal of a single keystone species cascaded into the loss of an entire ecosystem type across thousands of miles of coastline.</p>
+      </div>
+    </div>
+    <div class="wolf-grid reveal">
+      <div class="wolf-panel">
+        <img src="pexels-claudia-cdk-454816888-34273908.jpg" alt="White wolves — keystone restoration">
+        <div class="wolf-panel-label">
+          <span class="wolf-panel-tag">Restoration</span>
+          <div class="wolf-panel-title">The Keystone Returns</div>
+        </div>
+      </div>
+      <div class="wolf-panel">
+        <img src="pexels-caleb-falkenhagen-216813613-30845531.jpg" alt="Wolf — predator force">
+        <div class="wolf-panel-label">
+          <span class="wolf-panel-tag">The Cascade</span>
+          <div class="wolf-panel-title">Nature in Balance</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YELLOWSTONE -->
+  <div class="ys-grid reveal">
+    <div class="ys-image" style="background-image: url('pexels-aaron-buitenwerf-546243-1293422.jpg');"></div>
+    <div class="ys-content">
+      <span class="label">Case Study</span>
+      <h2 class="heading-lg">The Yellowstone Lesson</h2>
+      <div class="body-text">
+        <p>The story of wolves in Yellowstone National Park is ecology's most powerful demonstration of what keystone restoration can accomplish. When wolves were eradicated from Yellowstone in the early 20th century, elk populations surged and grazed riparian areas bare. Stream banks eroded. Aquatic habitats collapsed. Songbird populations fell.</p>
+        <p>When wolves were reintroduced beginning in the 1990s, the cascade ran in reverse. Elk changed their grazing behavior to avoid exposed riverbanks. Willows and cottonwoods returned. Beavers — who need willows — returned. Their dams slowed water flow, deepened soil moisture, and raised the water table.</p>
+        <p>Birds and fish followed. The rivers literally began to change course — stabilized by the roots of plants that had been absent for decades. One species. One decision. An entire world restored.</p>
+      </div>
+      <a href="#" class="btn btn-gold" style="margin-top: 2.5rem; align-self: flex-start;">Read the Science</a>
+    </div>
+  </div>
+
+  <!-- RESTORATION SECTION -->
+  <section class="section section-offwhite section-relative">
+    <div class="chapter-number" style="color: rgba(0,0,0,0.03);">03</div>
+    <div class="inner">
+      <span class="label reveal">Evidence</span>
+      <h2 class="heading-lg reveal">What Happens When<br>a Keystone is Restored</h2>
+      <div class="two-col reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+        <div class="body-text dark">
+          <p>The Yellowstone wolves changed rivers. Sea otters, when protected and recovering, restored kelp forests up and down the Pacific coast. Beavers reintroduced to degraded watersheds in Britain and the American West rebuilt entire riparian ecosystems within years.</p>
+          <p>Every documented case of keystone restoration follows the same pattern: when the species whose relationships hold an ecosystem together returns, the surrounding community remembers how to assemble itself. Species that had been absent for generations reappear. Soils stabilize. Water tables rise.</p>
+        </div>
+        <div>
+          <div class="body-text dark">
+            <p>The diversity of life that had silently been waiting for the conditions to return begins to re-emerge. This is not metaphor. It is documented, measurable, peer-reviewed ecological science. It is also one of the most genuinely hopeful bodies of evidence in all of conservation biology.</p>
+            <p>What the science of keystone restoration tells us is that living systems are not merely fragile — they are resilient, given the right conditions. The conditions are often simpler than we imagine: restore the one species whose relationships anchor everything else, and the system begins to heal.</p>
+          </div>
+          <div class="pull-quote" style="margin-top:2rem;">
+            This is the ecological precedent on which ORIGIN's entire vision rests.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE QUESTION — transition to humanity -->
+  <section class="section section-white section-relative">
+    <div class="chapter-number">04</div>
+    <div class="inner-mid" style="text-align: center;">
+      <span class="label reveal" style="text-align:center;">The Question Every Ecologist Eventually Reaches</span>
+      <h2 class="heading-xl reveal">Are Humans a<br>Keystone Species?</h2>
+      <div class="body-text reveal" style="max-width: 620px; margin: 0 auto 3rem; color: #3a3a3a;">
+        <p>It is the question that sits at the edge of most keystone species literature, unnamed. Humans are unique in that they are the only species that can know they are a keystone species. Thus humans can act to ensure that they minimize negative effects on species diversity and maximize positive ones.</p>
+        <p>Given that humans have co-evolved with other species, nested within Earth's lifesheds, there is now no way they can be removed without degrading or de-evolving the planetary system as a whole.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDIGENOUS PORTRAITS — ancestral wisdom -->
+  <div class="portrait-strip">
+    <div class="portrait-cell">
+      <img src="pexels-gustavo-monteiro-507892590-16163493.jpg" alt="Indigenous elder on river">
+      <div class="portrait-overlay">
+        <span class="portrait-region">Amazon Basin</span>
+        <div class="portrait-quote">"We have always known our role was to tend the living world."</div>
+      </div>
+    </div>
+    <div class="portrait-cell">
+      <img src="pexels-franssy-acosta-571467985-32642844.jpg" alt="Indigenous people in forest">
+      <div class="portrait-overlay">
+        <span class="portrait-region">Ancestral Wisdom</span>
+        <div class="portrait-quote">"The forest does not belong to us. We belong to the forest."</div>
+      </div>
+    </div>
+    <div class="portrait-cell">
+      <img src="pexels-leonardocapitaniophoto-13028676.jpg" alt="Elder with face paint">
+      <div class="portrait-overlay">
+        <span class="portrait-region">Indigenous Elder</span>
+        <div class="portrait-quote">"Every generation is given the earth in trust — not in ownership."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUMANITY AS KEYSTONE -->
+  <section class="section section-black section-relative">
+    <div class="chapter-number" style="color: rgba(255,255,255,0.03);">05</div>
+    <div class="inner">
+      <span class="label reveal">The Scientific Case</span>
+      <h2 class="heading-lg reveal" style="color:var(--white);">Humanity's Footprint,<br>Redirected</h2>
+      <div class="two-col reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+        <div class="body-text light">
+          <p>The argument is not sentimental. It is structural. Keystone species are defined by the disproportionate scale of their effects relative to their biomass — and by the irreplaceability of their ecological role. By both measures, humanity qualifies.</p>
+          <p>No other species on Planet Earth has reshaped more ecosystems. No other species has the capacity to choose the direction of that reshaping. And no other species, having understood what it has done, has demonstrated — on farms, in forests, along watersheds — the capacity to redirect that footprint toward restoration.</p>
+        </div>
+        <div class="body-text light">
+          <p>We are not destructive by nature, but by habit. Our potential for destruction is mirrored by our potential for regeneration. When co-existing with nature rather than obliterating it, we often have a productive role to play as a keystone species that maintains a healthy ecosystem.</p>
+          <p>Across every continent, the evidence is accumulating. Degraded soil rebuilt through regenerative agriculture. Watersheds restored through holistic land management. Reforested landscapes drawing rainfall patterns back to regions that had been drying for decades.</p>
+        </div>
+      </div>
+      <div class="pull-quote reveal" style="border-left-color: var(--gold); color: var(--gold); margin-top: 4rem;">
+        If we recognize our true role as a keystone species, we can be the primary vector for restoring ecosystems and healing the earth.
+      </div>
+    </div>
+  </section>
+
+  <!-- STEWARD MOSAIC -->
+  <div class="steward-mosaic">
+    <div class="sm-cell sm-wide">
+      <img src="pexels-pixabay-235925.jpg" alt="Terraced rice fields">
+      <div class="sm-caption">Vietnam highlands — humanity shaping land with care</div>
+    </div>
+    <div class="sm-cell">
+      <img src="pexels-shahadatpranta-7518253.jpg" alt="Farmers in field">
+      <div class="sm-caption">Bangladesh — regenerative farming</div>
+    </div>
+    <div class="sm-cell">
+      <img src="pexels-navnidh-5458363.jpg" alt="Rice planting">
+      <div class="sm-caption">South Asia — planting as stewardship</div>
+    </div>
+    <div class="sm-cell sm-wide">
+      <img src="pexels-thanhhoa-tran-640546-1447092.jpg" alt="Women in golden rice terraces">
+      <div class="sm-caption">Vietnam — tending the living landscape</div>
+    </div>
+  </div>
+
+  <!-- FROM DEGRADATION TO REGENERATION -->
+  <section class="section section-white section-relative">
+    <div class="chapter-number">06</div>
+    <div class="inner">
+      <span class="label reveal">Evidence on the Ground</span>
+      <h2 class="heading-lg reveal">From Degradation<br>to Regeneration</h2>
+      <div class="two-col reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+        <div>
+          <div class="body-text dark">
+            <p>Across every continent, the evidence is accumulating. Degraded soil rebuilt through regenerative agriculture. Watersheds restored through holistic land management. Reforested landscapes drawing rainfall patterns back to regions that had been drying for decades. Coral reef systems supported back from the edge of bleaching by communities of stewards who understood their role in the chemistry of the water.</p>
+            <p>As a keystone species, humans have the greatest opportunity to support and uplift our natural life systems. We must return to our place in nature and work towards a collective goal of sustaining all life on Earth.</p>
+          </div>
+        </div>
+        <div>
+          <div class="body-text dark">
+            <p>The wolves of Yellowstone did not choose to restore the river. Their nature, expressed freely and in relationship, did it for them. Humanity has something the wolves do not: the awareness of its own ecological role. The capacity to choose, collectively, to redirect the footprint.</p>
+            <p>This is the profound implication of the keystone species concept when applied honestly to our own species. We are not the problem. We are a keystone species in the middle of remembering what it means to tend, to restore, to hold the arch in place so that everything else can flourish.</p>
+          </div>
+          <div class="pull-quote">
+            Every footprint can increase the life force of our home.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL — farmer in mist -->
+  <div class="testimonial reveal" style="background-image: url('pexels-pixabay-247597.jpg');">
+    <div class="inner-narrow" style="text-align:center;">
+      <span class="label" style="text-align:center; display:block;">Dr. Zach Bush</span>
+      <blockquote class="testimonial-quote">
+        "Origin marks a pivotal moment for humanity and is a celebration of our return to our role as a keystone species. With the convergence of modern science, technology, and ancestral wisdom, we can now realign human activity with natural systems, restoring health, vitality, and harmony with Earth's rebirth."
+      </blockquote>
+      <p class="testimonial-name">Dr. Zach Bush — ORIGIN Founding Visionary</p>
+    </div>
+  </div>
+
+  <!-- ONE BILLION KEYSTONE MOMENTS -->
+  <section class="section section-offwhite section-relative">
+    <div class="chapter-number" style="color:rgba(0,0,0,0.03);">07</div>
+    <div class="inner">
+      <span class="label reveal">October 17, 2026</span>
+      <h2 class="heading-xl reveal">One Billion<br>Keystone Moments</h2>
+      <div class="two-col reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+        <div class="body-text dark">
+          <p>Research into human coherence shows that when large groups of people enter shared states of focused, intentional attention, measurable physiological effects occur — across the group and, researchers are beginning to document, potentially into the natural systems surrounding them.</p>
+          <p>What keystone ecology proves at the species level — that one species, acting in accordance with its ecological role, can reshape entire systems — coherence science begins to confirm at the collective level: the direction of human attention and action matters at a scale larger than any individual.</p>
+        </div>
+        <div>
+          <div class="body-text dark">
+            <p>On October 17th, 2026, ORIGIN will bring together one billion people in a synchronized global moment — moving west with the light across every time zone, from the Cradle of Humankind near Johannesburg, South Africa, outward to every community on Planet Earth.</p>
+            <p>The Regenerative Earth Fund — backed by a circle of wealth holders pledging up to one billion dollars — will be activated by participation, channeling resources directly into soil restoration, reforestation, and watershed renewal. One Billion Hearts = One Billion Dollars.</p>
+          </div>
+          <a href="#" class="btn btn-black" style="margin-top: 2.5rem;">Join the Movement</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEWARD IMAGERY — farms across cultures -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px;">
+    <div style="overflow:hidden; height:480px; position:relative;">
+      <img src="pexels-artiagarwal-2880741.jpg" alt="Women farmers India" style="width:100%; height:100%; object-fit:cover; transition: transform 0.5s;">
+    </div>
+    <div style="overflow:hidden; height:480px; position:relative;">
+      <img src="pexels-equalstock-20527523.jpg" alt="Women in green field" style="width:100%; height:100%; object-fit:cover; transition: transform 0.5s;">
+    </div>
+  </div>
+
+  <!-- CTA BOX -->
+  <section class="section section-white">
+    <div class="inner-mid">
+      <div class="cta-box reveal" style="background:var(--black); padding:5rem; text-align:center;">
+        <span class="label" style="display:block; text-align:center;">The Keystone Species Acts</span>
+        <h2 class="cta-box-title heading-lg" style="color:var(--white); margin-bottom:1.5rem;">The Living<br>Systems Respond</h2>
+        <p class="cta-box-body body-text" style="color:rgba(255,255,255,0.5); max-width:480px; margin:0 auto 3rem;">
+          This is not a conference. Not a festival. It is a remembering — of who we are, what we carry, and what becomes possible when one billion human keystones choose, in the same moment, to tend their home.
+        </p>
+        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+          <a href="#" class="btn btn-gold">Join Now</a>
+          <a href="#" class="btn btn-ghost">Learn About the Fund</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAUNCH BANNER -->
+  <section class="launch-banner">
+    <div class="inner" style="text-align:center;">
+      <p class="launch-eyebrow">Synchronized Global Moment</p>
+      <h2 class="launch-title">October<br>17</h2>
+      <p class="launch-date">2026 — The Largest Coordinated Act of Planetary Stewardship in History</p>
+      <p class="launch-body">One billion people. One synchronized moment. Moving west with the light from the Cradle of Humankind, across every time zone, to every community on Earth.</p>
+      <div class="launch-buttons">
+        <a href="#" class="btn btn-white">Register Your Gathering</a>
+        <a href="#" class="btn btn-gold">One Billion Hearts</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="inner">
+      <div class="footer-grid">
+        <div>
+          <a href="#" class="footer-logo">Origin</a>
+          <p class="footer-tagline">Humanity as a keystone species — not here to consume, but to co-create with Mother Earth.</p>
+        </div>
+        <div>
+          <p class="footer-col-title">Navigate</p>
+          <ul class="footer-links">
+            <li><a href="#">What Is Origin</a></li>
+            <li><a href="#">Keystone Species</a></li>
+            <li><a href="#">The Fund</a></li>
+            <li><a href="#">Global Event</a></li>
+            <li><a href="#">Join</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col-title">Connect</p>
+          <ul class="footer-links">
+            <li><a href="#">Origin App</a></li>
+            <li><a href="#">Host a Gathering</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Origin. All rights reserved.</span>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav dark on scroll
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('dark', window.scrollY > 50);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Image hover scale
+    document.querySelectorAll('.ys-grid img, .two-col img').forEach(img => {
+      img.addEventListener('mouseenter', () => img.style.transform = 'scale(1.04)');
+      img.addEventListener('mouseleave', () => img.style.transform = 'scale(1)');
+    });
+  </script>
+</body>
+</html>
